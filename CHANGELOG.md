@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Interactive panels show exactly the requested time range and refetch only when the view leaves the loaded range; the loaded range is tracked as the compute-graph input instead of the axis limits at creation.
 - **Breaking**: the mutable `DEFAULTS` global is gone; defaults live in `THEME` and are overridden through Makie's theme (`update_theme!(SpacePhysicsMakie = (; add_title = true))`, `with_theme`).
 - **Breaking**: time series are recognised through SpaceDataModel's interface (`hastimedim`, `times`, `tdimnum`) instead of sniffing `.time`/`.times`/`.dims` properties. A `DimArray` without a `Ti` or `:time` dimension now plots through Makie's default recipe.
 - **Breaking**: `degap` and `reindex` moved to TimeseriesUtilities (0.2.3); they are array operations, not plotting.
