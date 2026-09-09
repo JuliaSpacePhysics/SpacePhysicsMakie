@@ -130,7 +130,19 @@ end
 _makie_t2x(x) = x
 _makie_t2x(x::Dates.AbstractDateTime) = DateTime(x)
 makie_t2x(x) = _makie_t2x.(x)
-makie_x(x) = hasproperty(x, :time) ? makie_t2x(x.time) : 1:size(x, 1)
+makie_x(x) = hastimedim(x) ? makie_t2x(times(x)) : 1:size(x, timedimnum(x))
+
+"""
+    hastimedim(x)
+
+Whether `x` carries its own time coordinate (`SpaceDataModel.times`). Plain arrays don't: their
+first axis is drawn as an index. `AbstractDataVariable`s and `DimArray`s with a `Ti` or `:time`
+dimension do; extend for other types implementing SpaceDataModel's `times` and `tdimnum`.
+"""
+hastimedim(x) = false
+
+timedimnum(x) = hastimedim(x) ? tdimnum(x) : 1
+otherdimnum(x) = timedimnum(x) == 1 ? 2 : 1
 
 function donothing(args...; kwargs...) end
 
