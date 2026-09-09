@@ -12,28 +12,21 @@ const SupportTypes = Union{AbstractArray{<:Number}, DataSource, String}
 const MultiPlottable = Union{AbstractVector{<:SupportTypes}, NamedTuple, Tuple}
 
 
-@kwdef mutable struct Defaults
-    add_title::Bool
-    add_colorbar::Bool
-    delay::Float64
-    resample::Int
-    position
-    vector_plottype::Symbol
-end
-
-vector_plottype() = Makie.symbol_to_plot(DEFAULTS.vector_plottype)
-
 """
-    DEFAULTS
+    THEME
 
-A global constant that holds default parameters:
+Package defaults, overridable through Makie's theme, e.g.
+`update_theme!(SpacePhysicsMakie = (; add_title = true))` or
+`with_theme(f; SpacePhysicsMakie = (; delay = 0.5))`:
 
-- `add_title::Bool` defaults to `false`.
-- `add_colorbar::Bool` defaults to `true`.
-- `delay` : in seconds, the time interval between updates. Default is 0.25.
-- `resample::Int` : the number of points to resample to. Default is 6070.
+- `add_title`: use the description metadata as the axis title
+- `add_colorbar`: add a colorbar to spectrogram panels
+- `delay`: idle seconds before an interactive panel refetches
+- `resample`: number of points long series are resampled to
+- `position`: legend and colorbar placement
+- `vector_plottype`: Makie plot type for plain vectors
 """
-const DEFAULTS = Defaults(;
+const THEME = (;
     add_title = false,
     add_colorbar = true,
     delay = 0.25,
@@ -41,6 +34,13 @@ const DEFAULTS = Defaults(;
     position = Right(),
     vector_plottype = :Lines,
 )
+
+function setting(key::Symbol)
+    t = Makie.theme(:SpacePhysicsMakie)
+    return isnothing(t) || !haskey(t, key) ? THEME[key] : to_value(t[key])
+end
+
+vector_plottype() = Makie.symbol_to_plot(setting(:vector_plottype))
 
 # https://github.com/MakieOrg/AlgebraOfGraphics.jl/blob/master/src/entries.jl
 struct FigureAxes
