@@ -140,6 +140,8 @@ first axis is drawn as an index. `AbstractDataVariable`s and `DimArray`s with a 
 dimension do; extend for other types implementing SpaceDataModel's `times` and `tdimnum`.
 """
 hastimedim(x) = false
+hastimedim(::AbstractDataVariable) = true
+hastimedim(x::AbstractDimArray) = hasdim(x, TimeDim) || hasdim(x, Dim{:time})
 
 timedimnum(x) = hastimedim(x) ? tdimnum(x) : 1
 otherdimnum(x) = timedimnum(x) == 1 ? 2 : 1

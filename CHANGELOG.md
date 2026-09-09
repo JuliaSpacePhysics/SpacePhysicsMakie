@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Removed
+
+- The TimeseriesUtilities dependency and the unfinished SpecApi path (`plot2spec`, `tplot_panel_s!`).
+
 ### Changed
 
 - Interactive panels show exactly the requested time range and refetch only when the view leaves the loaded range; the loaded range is tracked as the compute-graph input instead of the axis limits at creation.

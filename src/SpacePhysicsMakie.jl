@@ -4,13 +4,11 @@ using Dates
 using Unitful
 using InverseFunctions: inverse
 using SpaceDataModel: SpaceDataModel, getdata, getmeta, times, unwrap, NoMetadata, tdimnum
-using SpaceDataModel: Dataset, Product, Transformed, get_schema, depend_1
+using SpaceDataModel: Dataset, Product, Transformed, AbstractDataVariable, get_schema, depend_1
 import SpaceDataModel as SDM
-using DimensionalData: DimArray
+using DimensionalData: DimArray, AbstractDimArray, TimeDim, Dim, hasdim
 using NaNStatistics: nanextrema, nanmedian
-using TimeseriesUtilities: tview
 
-import Makie: convert_arguments, plot!, conversion_trait, get_plots
 using Makie: ComputeGraph
 using Makie.ComputePipeline
 
@@ -31,7 +29,6 @@ include("core.jl")
 include("panel.jl")
 include("utils.jl")
 include("spectrogram.jl")
-include("specapi.jl")
 include("interactive.jl")
 include("recipes/funcplot.jl")
 include("recipes/linesplot.jl")
@@ -42,7 +39,4 @@ include("attributes.jl")
 include("axis.jl")
 include("methods.jl")
 include("makie.jl")
-
-include("../ext/DimensionalDataExt.jl")
-include("../ext/SpaceDataModelExt.jl")
 end
