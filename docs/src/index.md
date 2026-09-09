@@ -96,6 +96,8 @@ We can combine these steps into a single command:
 
 `tplot(f, t0, t1)`
 
+Any source that `SpaceDataModel.getdata(x, t0, t1)` can materialize works the same way: a plain function, or a `Product`, `Dataset` or `Transformed` from SpaceDataModel.
+
 This approach enables efficient interactive exploration of time series.
 
 !!! note

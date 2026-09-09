@@ -3,7 +3,8 @@ using Makie
 using Dates
 using Unitful
 using InverseFunctions: inverse
-using SpaceDataModel: SpaceDataModel, times, unwrap, NoMetadata, tdimnum
+using SpaceDataModel: SpaceDataModel, getdata, getmeta, times, unwrap, NoMetadata, tdimnum
+using SpaceDataModel: Dataset, Product, Transformed
 import SpaceDataModel as SDM
 using DimensionalData: DimArray
 using Statistics: mean
